@@ -1,0 +1,104 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Jan 02 03:55:23 2019
+
+@author: VREDDYJ
+
+1. Place the home_data.csv into /data folder
+2. Load linear regression model from sk-learn and create a quick
+dataframe overview using pandas
+3. Train the model
+4. Evaluation metrics
+5. Visualize the linear line and function estimators  
+
+"""
+import numpy as np
+import pandas as pd
+# import model
+import sklearn as sk 
+from sklearn.linear_model import LinearRegression
+print(sk.__version__)
+#from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
+# import module to calculate model perfomance metrics
+from sklearn import metrics
+
+
+data_path = "home_data.csv" # or load the dataset directly from the link
+data = pd.read_csv(data_path, index_col=0)
+print(data.shape)
+data.head()
+# create a Python list of feature names
+
+feature_names = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'zipcode']
+# use the list to select a subset of the original DataFrame
+X = data[feature_names]
+
+# sales
+y = data.price
+
+print(X)
+print(Y)
+# Splitting X and y into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
+
+print(X_train, X_test, y_train, y_test)
+# Linear Regression Model
+linreg = LinearRegression()
+
+# fit the model to the training data (learn the coefficients)
+linreg.fit(X_train, y_train)
+
+# make predictions on the testing set
+y_pred = linreg.predict(X_test)
+print(X_test, y_test, '--> ',  y_pred, (y_test - y_pred) )
+# compute the RMSE of our predictions
+print(np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
+
+# Calculating RMSE and R2 Score
+mse = mean_squared_error(y_test, y_pred)
+rmse = np.sqrt(mse)
+print(np.sqrt(mse))
+# with advanced features
+feature_names =  [
+'bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'zipcode',
+'condition', # condition of house				
+'grade', # measure of quality of construction				
+'waterfront', # waterfront property				
+'view', # type of view				
+'sqft_above', # square feet above ground				
+'sqft_basement', # square feet in basement				
+'yr_built', # the year built				
+'yr_renovated', # the year renovated				
+'lat', 'long', # the lat-long of the parcel				
+'sqft_living15', # average sq.ft. of 15 nearest neighbors 				
+'sqft_lot15', # average lot size of 15 nearest neighbors 
+]
+# use the list to select a subset of the original DataFrame
+X = data[feature_names]
+
+# sales
+y = data.price
+
+print(X)
+print(Y)
+# Splitting X and y into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
+
+print(X_train, X_test, y_train, y_test)
+# Linear Regression Model
+linreg = LinearRegression()
+
+# fit the model to the training data (learn the coefficients)
+linreg.fit(X_train, y_train)
+
+# make predictions on the testing set
+y_pred = linreg.predict(X_test)
+print(X_test, y_test, '--> ',  y_pred, (y_test - y_pred) )
+# compute the RMSE of our predictions
+print(np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
+
+# Calculating RMSE and R2 Score
+mse = mean_squared_error(y_test, y_pred)
+rmse = np.sqrt(mse)
+print(np.sqrt(mse))
